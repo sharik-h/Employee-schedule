@@ -18,8 +18,8 @@ class viewModel: ViewModel() {
 
     fun addNewEvent() {
         firestore
-            .document("$currentuser/${newEvent.value.date}")
-            .set(newEvent.value)
+            .collection("$currentuser")
+            .add(newEvent.value)
     }
 
     fun update(name: String, value: String) {
