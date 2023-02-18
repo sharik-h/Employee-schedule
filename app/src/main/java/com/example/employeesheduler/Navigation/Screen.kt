@@ -6,4 +6,5 @@ sealed class Screen(val route: String) {
         fun passUser(user: String) = "signUp/$user"
     }
     object splash: Screen(route = "splash")
+    object employeeHome: Screen(route = "employeeHome")
 }

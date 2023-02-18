@@ -32,9 +32,9 @@ fun SplashScreen(navHostController: NavHostController) {
         delay(1000)
         navHostController.popBackStack()
         if (user?.uid != null) {
-            navHostController.navigate(Screen.chooseUser.route)
+            navHostController.navigate(Screen.employeeHome.route)
         }else{
-            // navigation to home page
+            navHostController.navigate(Screen.chooseUser.route)
         }
     }
     Splash(floatAsState.value)
