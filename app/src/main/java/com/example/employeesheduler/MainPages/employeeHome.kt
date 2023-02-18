@@ -23,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.material.MaterialTheme
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
@@ -42,25 +43,8 @@ fun employeeHome(
     viewModel: viewModel
 ) {
 
-    val events = remember {
-        mutableStateListOf(
-            Event(
-                title = "Meeting",
-                description = "Discuss project roadmap",
-                date = LocalDate.of(2023, 2, 15).toString()
-            ),
-            Event(
-                title = "Presentation",
-                description = "Present new product features",
-                date = LocalDate.of(2023, 2, 25).toString()
-            ),
-            Event(
-                title = "presentation",
-                description = "nothing",
-                date = LocalDate.of(2023, 2,15).toString()
-            )
-        )
-    }
+    viewModel.getAllEvents()
+    val events by viewModel.allEvents.observeAsState(initial = emptyList())
 
     Column(Modifier.fillMaxSize()) {
 
