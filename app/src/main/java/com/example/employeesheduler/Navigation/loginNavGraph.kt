@@ -11,12 +11,17 @@ import androidx.navigation.navArgument
 import com.example.employeesheduler.LoginPages.chooseUser
 import com.example.employeesheduler.LoginPages.signUp
 import com.example.employeesheduler.MainPages.employeeHome
+import com.example.employeesheduler.MainPages.newEvent
 import com.example.employeesheduler.SplashScreen.SplashScreen
+import com.example.employeesheduler.viewModel
 
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun loginNavGraph(navHostController: NavHostController) {
+fun loginNavGraph(
+    navHostController: NavHostController,
+    viewModel: viewModel
+) {
     NavHost(
         navController = navHostController,
         startDestination = Screen.splash.route
@@ -34,7 +39,10 @@ fun loginNavGraph(navHostController: NavHostController) {
             signUp(user = it.arguments?.getString("user").toString())
         }
         composable(route = Screen.employeeHome.route){
-            employeeHome()
+            employeeHome(navHostController = navHostController, viewModel = viewModel)
+        }
+        composable(route = Screen.newEvent.route){
+            newEvent(viewModel = viewModel, navHostController = navHostController)
         }
     }
 }

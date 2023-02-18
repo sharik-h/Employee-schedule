@@ -29,29 +29,35 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
+import androidx.navigation.NavHostController
 import com.example.employeesheduler.Data.Event
+import com.example.employeesheduler.Navigation.Screen
 import com.example.employeesheduler.R
+import com.example.employeesheduler.viewModel
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun employeeHome() {
+fun employeeHome(
+    navHostController: NavHostController,
+    viewModel: viewModel
+) {
 
     val events = remember {
         mutableStateListOf(
             Event(
                 title = "Meeting",
                 description = "Discuss project roadmap",
-                date = LocalDate.of(2023, 2, 15)
+                date = LocalDate.of(2023, 2, 15).toString()
             ),
             Event(
                 title = "Presentation",
                 description = "Present new product features",
-                date = LocalDate.of(2023, 2, 25)
+                date = LocalDate.of(2023, 2, 25).toString()
             ),
             Event(
                 title = "presentation",
                 description = "nothing",
-                date = LocalDate.of(2023, 2,15)
+                date = LocalDate.of(2023, 2,15).toString()
             )
         )
     }
@@ -86,7 +92,9 @@ fun employeeHome() {
             itemsIndexed(daysOfMonth) { index, date ->
                 CalendarView(
                     date = date,
-                    events = events.filter { it.date == date },
+                    events = events.filter { it.date == date.toString() },
+                    viewModel = viewModel,
+                    navHostController = navHostController
                 )
             }
         }
@@ -99,6 +107,8 @@ fun employeeHome() {
 fun CalendarView(
     date: LocalDate,
     events: List<Event>,
+    viewModel: viewModel,
+    navHostController: NavHostController
 ) {
     var selected by remember { mutableStateOf(false) }
     Column(
@@ -175,9 +185,9 @@ fun CalendarView(
                     items(items = events) {
                         Spacer(modifier = Modifier.height(10.dp))
                         Row(Modifier.fillMaxWidth()) {
-                            Text(text = it.title)
+                            Text(text = it.title!!)
                             Spacer(modifier = Modifier.weight(0.2f))
-                            Text(text = it.description)
+                            Text(text = it.description!!)
                         }
                     }
                 }
@@ -189,7 +199,10 @@ fun CalendarView(
                 horizontalAlignment = Alignment.End
             ) {
                 IconButton(
-                    onClick = { /*TODO*/ },
+                    onClick = {
+                        viewModel.update(name = "date", value = date.toString())
+                        navHostController.navigate(Screen.newEvent.route)
+                              },
                     modifier = Modifier
                         .clip(RoundedCornerShape(50))
                         .background(Color(0xA9E284FC))
