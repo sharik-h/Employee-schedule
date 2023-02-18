@@ -1,23 +1,24 @@
 package com.example.employeesheduler.LoginPages
 
+import android.content.Intent
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 
-@Preview(showBackground = true)
 @Composable
-fun signUp() {
+fun signUp(user: String) {
 
     var name by remember { mutableStateOf("") }
     var phone by remember { mutableStateOf("") }
+    val context = LocalContext.current
 
     Column(
         Modifier
@@ -59,7 +60,14 @@ fun signUp() {
             )
         )
         Spacer(modifier = Modifier.height(30.dp))
-        Button(onClick = { /*TODO*/ }, modifier = Modifier
+        Button(onClick = {
+                    context.startActivity(
+                        Intent(context, Authenticate::class.java)
+                            .putExtra("name", name)
+                            .putExtra("phone", phone)
+                            .putExtra("user", user)
+                    )
+        }, modifier = Modifier
             .fillMaxWidth()
             .size(55.dp), colors = ButtonDefaults.buttonColors(Color.Blue)
         ) {
