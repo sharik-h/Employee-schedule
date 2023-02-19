@@ -9,7 +9,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
@@ -17,12 +16,10 @@ import androidx.compose.ui.unit.dp
 import java.time.LocalDate
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.IconButton
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.ui.Alignment
@@ -35,6 +32,8 @@ import com.example.employeesheduler.Data.Event
 import com.example.employeesheduler.Navigation.Screen
 import com.example.employeesheduler.R
 import com.example.employeesheduler.viewModel
+import me.saket.swipe.SwipeAction
+import me.saket.swipe.SwipeableActionsBox
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -167,11 +166,51 @@ fun CalendarView(
             ) {
                 LazyColumn {
                     items(items = events) {
-                        Spacer(modifier = Modifier.height(10.dp))
-                        Row(Modifier.fillMaxWidth()) {
-                            Text(text = it.title!!)
-                            Spacer(modifier = Modifier.weight(0.2f))
-                            Text(text = it.description!!)
+                        val edit = SwipeAction(
+                            onSwipe = {  },
+                            icon = {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.edit_white),
+                                    contentDescription = "",
+                                    tint = Color.White
+                                )
+                            },
+                            background = Color(0xFF03B8FF)
+                        )
+                        val delete = SwipeAction(
+                            onSwipe = { },
+                            icon = { Icon(
+                                painter = painterResource(id = R.drawable.delete_white),
+                                contentDescription = " ",
+                                tint = Color.White
+                            ) },
+                            background = Color.Red
+                        )
+                            SwipeableActionsBox(
+                                startActions = listOf(edit),
+                                endActions = listOf(delete),
+                                swipeThreshold = 170.dp,
+                                modifier = Modifier
+                                    .clip(RoundedCornerShape(30))
+                            ) {
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(35.dp)
+                                        .clip(RoundedCornerShape(30))
+                                        .background(Color(0xA9E284FC))
+                                ) {
+                                    Text(
+                                        text = it.title!!,
+                                        modifier = Modifier.padding(start = 10.dp)
+                                    )
+                                    Spacer(modifier = Modifier.weight(0.2f))
+                                    Text(
+                                        text = it.description!!,
+                                        modifier = Modifier.padding(end = 10.dp)
+                                    )
+                                }
                         }
                     }
                 }

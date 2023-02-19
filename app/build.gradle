@@ -81,4 +81,7 @@ dependencies {
 
     //livedata
     implementation "androidx.compose.runtime:runtime-livedata:$compose_ui_version"
+
+    // Swipe
+    implementation "me.saket.swipe:swipe:1.0.0"
 }
