@@ -28,11 +28,16 @@ fun SplashScreen(navHostController: NavHostController) {
     )
     LaunchedEffect(key1 = true ) {
         startAnimState = true
-        val user = FirebaseAuth.getInstance().currentUser
+        val user = FirebaseAuth.getInstance().currentUser?.displayName
         delay(1000)
         navHostController.popBackStack()
-        if (user?.uid != null) {
-            navHostController.navigate(Screen.employeeHome.route)
+        if (user != null) {
+            user.split(":")
+            if (user.contains("employee")){
+                navHostController.navigate(Screen.employeeHome.route)
+            }else{
+                navHostController.navigate(Screen.employerHome.route)
+            }
         }else{
             navHostController.navigate(Screen.chooseUser.route)
         }

@@ -3,6 +3,7 @@ package com.example.employeesheduler
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.employeesheduler.Data.Employee
 import com.example.employeesheduler.Data.Event
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
@@ -14,6 +15,7 @@ class viewModel: ViewModel() {
     val firestore = Firebase.firestore
     val newEvent = mutableStateOf(Event())
     var allEvents: MutableLiveData<List<Event>> = MutableLiveData()
+    var allEmployee: MutableLiveData<List<Employee>> = MutableLiveData()
 
 
     fun addNewEvent() {
@@ -63,6 +65,19 @@ class viewModel: ViewModel() {
 
     fun clearData(){
         newEvent.value = Event()
+    }
+
+    fun getAllEmployees() {
+        firestore
+            .collection("employer/$currentuser/employees")
+            .get()
+            .addOnSuccessListener {
+                val data = mutableListOf<Employee>()
+                it.documents.forEach {
+                    data.add(it.toObject(Employee::class.java)!!)
+                }
+                allEmployee.value = data
+            }
     }
 
 }
