@@ -178,7 +178,10 @@ fun CalendarView(
                             background = Color(0xFF03B8FF)
                         )
                         val delete = SwipeAction(
-                            onSwipe = { },
+                            onSwipe = {
+                                viewModel.deleteEvent(id = it.id)
+                                viewModel.getAllEvents()
+                            },
                             icon = { Icon(
                                 painter = painterResource(id = R.drawable.delete_white),
                                 contentDescription = " ",

@@ -37,10 +37,18 @@ class viewModel: ViewModel() {
             .addOnSuccessListener {
                 val data = mutableListOf<Event>()
                 it.documents.forEach {
-                    data.add(it.toObject(Event::class.java)!!)
+                   val doc =  it.toObject(Event::class.java)!!
+                    doc.id = it.id
+                    data.add(doc)
                 }
                 allEvents.value = data
             }
+    }
+
+    fun deleteEvent(id: String){
+        firestore
+            .document("$currentuser/$id")
+            .delete()
     }
 
 }
