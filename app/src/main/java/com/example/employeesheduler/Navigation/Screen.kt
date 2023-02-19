@@ -7,5 +7,7 @@ sealed class Screen(val route: String) {
     }
     object splash: Screen(route = "splash")
     object employeeHome: Screen(route = "employeeHome")
-    object newEvent: Screen(route = "newEvent")
+    object newEvent: Screen(route = "newEvent/{use}"){
+        fun passUse(use: String) = "newEvent/${use}"
+    }
 }

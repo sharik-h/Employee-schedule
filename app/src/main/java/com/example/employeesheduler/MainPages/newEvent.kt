@@ -15,7 +15,8 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 @Composable
 fun newEvent(
     navHostController: NavHostController,
-    viewModel: viewModel
+    viewModel: viewModel,
+    use: String
 ) {
 
     val event by viewModel.newEvent
@@ -41,7 +42,13 @@ fun newEvent(
                 )
                 Spacer(modifier = Modifier.weight(0.2f))
                 TextButton(onClick = {
-                    if (event.title != "") viewModel.addNewEvent()
+                    if (event.title != "") {
+                        if (use == "newEvent"){
+                            viewModel.addNewEvent()
+                        }else{
+                            viewModel.updateEvent()
+                        }
+                    }
                     navHostController.navigateUp()
                 } ) {
                     Text(

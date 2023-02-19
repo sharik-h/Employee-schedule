@@ -167,7 +167,13 @@ fun CalendarView(
                 LazyColumn {
                     items(items = events) {
                         val edit = SwipeAction(
-                            onSwipe = {  },
+                            onSwipe = {
+                                viewModel.update("title", it.title)
+                                viewModel.update("discription", it.description)
+                                viewModel.update("date", it.date)
+                                viewModel.update("id", it.id)
+                                navHostController.navigate(Screen.newEvent.passUse("updateEvent"))
+                            },
                             icon = {
                                 Icon(
                                     painter = painterResource(id = R.drawable.edit_white),
@@ -227,7 +233,7 @@ fun CalendarView(
                 IconButton(
                     onClick = {
                         viewModel.update(name = "date", value = date.toString())
-                        navHostController.navigate(Screen.newEvent.route)
+                        navHostController.navigate(Screen.newEvent.passUse("newEvent"))
                               },
                     modifier = Modifier
                         .clip(RoundedCornerShape(50))

@@ -41,8 +41,15 @@ fun loginNavGraph(
         composable(route = Screen.employeeHome.route){
             employeeHome(navHostController = navHostController, viewModel = viewModel)
         }
-        composable(route = Screen.newEvent.route){
-            newEvent(viewModel = viewModel, navHostController = navHostController)
+        composable(
+            route = Screen.newEvent.route,
+            arguments = listOf(navArgument(name = "use"){type = NavType.StringType})
+        ){
+            newEvent(
+                viewModel = viewModel,
+                navHostController = navHostController,
+                use = it.arguments?.getString("use")!!
+            )
         }
     }
 }

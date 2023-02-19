@@ -27,6 +27,7 @@ class viewModel: ViewModel() {
             "title" -> newEvent.value = newEvent.value.copy(title = value)
             "discription" -> newEvent.value = newEvent.value.copy(description = value)
             "date" -> newEvent.value = newEvent.value.copy(date = value)
+            "id" -> newEvent.value = newEvent.value.copy(id = value)
         }
     }
 
@@ -49,6 +50,15 @@ class viewModel: ViewModel() {
         firestore
             .document("$currentuser/$id")
             .delete()
+    }
+
+    fun updateEvent() {
+        firestore
+            .document("$currentuser/${newEvent.value.id}")
+            .update(mapOf(
+                "title" to newEvent.value.title,
+                "description" to newEvent.value.description
+            ))
     }
 
 }
