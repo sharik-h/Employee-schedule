@@ -79,7 +79,7 @@ fun newEvent(
             TextField(
                 value = event.description,
                 onValueChange = { viewModel.update(name = "discription", value = it) },
-                placeholder = { Text(text = "Discription about event") },
+                placeholder = { Text(text = "Please specify it shortly within 30 characters") },
                 colors = TextFieldDefaults.textFieldColors(
                     backgroundColor = Color.Transparent,
                     unfocusedIndicatorColor = Color.Transparent,
