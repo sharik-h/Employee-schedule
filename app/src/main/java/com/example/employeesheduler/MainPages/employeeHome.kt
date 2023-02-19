@@ -28,7 +28,7 @@ import androidx.navigation.NavHostController
 import com.example.employeesheduler.Data.Event
 import com.example.employeesheduler.Navigation.Screen
 import com.example.employeesheduler.R
-import com.example.employeesheduler.viewModel
+import com.example.employeesheduler.ViewModel.viewModel
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import me.saket.swipe.SwipeAction
 import me.saket.swipe.SwipeableActionsBox

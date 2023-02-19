@@ -9,7 +9,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.example.employeesheduler.viewModel
+import com.example.employeesheduler.ViewModel.viewModel
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable

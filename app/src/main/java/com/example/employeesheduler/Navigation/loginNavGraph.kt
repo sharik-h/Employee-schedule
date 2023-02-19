@@ -15,7 +15,7 @@ import com.example.employeesheduler.MainPages.employerHome
 import com.example.employeesheduler.MainPages.newEmployee
 import com.example.employeesheduler.MainPages.newEvent
 import com.example.employeesheduler.SplashScreen.SplashScreen
-import com.example.employeesheduler.viewModel
+import com.example.employeesheduler.ViewModel.viewModel
 
 
 @RequiresApi(Build.VERSION_CODES.O)

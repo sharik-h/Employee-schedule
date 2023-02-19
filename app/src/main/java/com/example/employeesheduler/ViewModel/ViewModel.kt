@@ -1,4 +1,4 @@
-package com.example.employeesheduler
+package com.example.employeesheduler.ViewModel
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.MutableLiveData
