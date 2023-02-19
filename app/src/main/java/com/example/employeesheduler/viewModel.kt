@@ -17,11 +17,12 @@ class viewModel: ViewModel() {
     val newEmployee = mutableStateOf(Employee())
     var allEvents: MutableLiveData<List<Event>> = MutableLiveData()
     var allEmployee: MutableLiveData<List<Employee>> = MutableLiveData()
+    var selectedEmpId = currentuser
 
 
     fun addNewEvent() {
         firestore
-            .collection("$currentuser")
+            .collection(selectedEmpId!!)
             .add(newEvent.value)
     }
 
@@ -38,7 +39,7 @@ class viewModel: ViewModel() {
 
     fun getAllEvents() {
         firestore
-            .collection("$currentuser")
+            .collection(selectedEmpId!!)
             .get()
             .addOnSuccessListener {
                 val data = mutableListOf<Event>()
@@ -53,13 +54,13 @@ class viewModel: ViewModel() {
 
     fun deleteEvent(id: String){
         firestore
-            .document("$currentuser/$id")
+            .document("$selectedEmpId/$id")
             .delete()
     }
 
     fun updateEvent() {
         firestore
-            .document("$currentuser/${newEvent.value.id}")
+            .document("$selectedEmpId/${newEvent.value.id}")
             .update(mapOf(
                 "title" to newEvent.value.title,
                 "description" to newEvent.value.description
@@ -88,6 +89,10 @@ class viewModel: ViewModel() {
         firestore
             .document("employer/$currentuser/employees/${newEmployee.value.id}")
             .set(newEmployee.value)
+    }
+
+    fun serUid(uid: String) {
+        selectedEmpId = uid
     }
 
 }

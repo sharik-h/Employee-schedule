@@ -2,6 +2,7 @@ package com.example.employeesheduler.MainPages
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -69,7 +70,10 @@ fun employerHome(
         Column(Modifier.fillMaxSize()) {
             LazyColumn {
                 items(items = allEmployees) {
-                    employeeModel(name = it.name, uid = it.id)
+                    employeeModel(name = it.name, uid = it.id){
+                        viewModel.serUid(uid = it.id)
+                        navHostController.navigate(Screen.employeeHome.route)
+                    }
                 }
             }
         }
@@ -77,7 +81,7 @@ fun employerHome(
 }
 
 @Composable
-fun employeeModel(name: String, uid: String) {
+fun employeeModel(name: String, uid: String, onClick: () -> Unit ) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -85,6 +89,7 @@ fun employeeModel(name: String, uid: String) {
             .padding(horizontal = 10.dp, vertical = 5.dp)
             .clip(RoundedCornerShape(20))
             .background(Color(0xA9B1B9FC))
+            .clickable { onClick() }
     ) {
         Row(
             Modifier
