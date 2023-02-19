@@ -45,6 +45,7 @@ fun employeeHome(
 
     viewModel.getAllEvents()
     val events by viewModel.allEvents.observeAsState(initial = emptyList())
+    var alertShown by remember { mutableStateOf(false) }
 
     Column(Modifier.fillMaxSize()) {
 
@@ -55,14 +56,30 @@ fun employeeHome(
             LocalDate.of(selectedYear, selectedMonth, day)
         }
 
-        Text(
-            text = "${selectedMonth.toString().lowercase().capitalize()} $selectedYear",
-            style = MaterialTheme.typography.h5,
-            textAlign = TextAlign.Center,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 16.dp)
-        )
+        Row(modifier = Modifier.fillMaxWidth()){
+            Spacer(modifier = Modifier.weight(0.4f))
+                Text(
+                    text = "${selectedMonth.toString().lowercase().capitalize()} $selectedYear",
+                    style = MaterialTheme.typography.h5,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(vertical = 16.dp)
+                )
+            Spacer(modifier = Modifier.weight(0.21f))
+            IconButton(onClick = { alertShown = !alertShown }) {
+                Image(
+                    painter = painterResource(id = R.drawable.info_gray),
+                    contentDescription = "",
+                    modifier = Modifier.padding(vertical = 20.dp)
+                )
+            }
+        }
+        if (alertShown){
+            AlertDialog(
+                onDismissRequest = { alertShown = false },
+                confirmButton = { },
+                text = { Text(text = "Id: ${viewModel.selectedEmpId}") }
+            )
+        }
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             itemsIndexed(daysOfMonth) { index, date ->
                 CalendarView(
