@@ -16,6 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.employeesheduler.Navigation.Screen
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.delay
 
@@ -26,6 +27,10 @@ fun SplashScreen(navHostController: NavHostController) {
         targetValue = if(startAnimState) 1f else 0f,
         animationSpec = tween(1000)
     )
+
+    val systemUiController = rememberSystemUiController()
+    systemUiController.setStatusBarColor(color = Color(0xFFFFFFFF))
+
     LaunchedEffect(key1 = true ) {
         startAnimState = true
         val user = FirebaseAuth.getInstance().currentUser?.displayName

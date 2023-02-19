@@ -32,6 +32,7 @@ import com.example.employeesheduler.Data.Event
 import com.example.employeesheduler.Navigation.Screen
 import com.example.employeesheduler.R
 import com.example.employeesheduler.viewModel
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import me.saket.swipe.SwipeAction
 import me.saket.swipe.SwipeableActionsBox
 
@@ -41,6 +42,9 @@ fun employeeHome(
     navHostController: NavHostController,
     viewModel: viewModel
 ) {
+
+    val systemUiController = rememberSystemUiController()
+    systemUiController.setStatusBarColor(color = Color(0xFCFFFFFF))
 
     viewModel.getAllEvents()
     val events by viewModel.allEvents.observeAsState(initial = emptyList())
