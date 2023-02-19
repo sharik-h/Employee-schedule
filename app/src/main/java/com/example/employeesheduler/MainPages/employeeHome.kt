@@ -1,7 +1,6 @@
 package com.example.employeesheduler.MainPages
 
 import android.os.Build
-import android.widget.CalendarView
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -21,11 +20,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavHostController
 import com.example.employeesheduler.Data.Event
@@ -67,15 +64,6 @@ fun employeeHome(
                 .padding(vertical = 16.dp)
         )
         LazyColumn(modifier = Modifier.fillMaxSize()) {
-
-            var selected = mutableStateOf(false)
-            var size = mutableStateOf(50)
-            if (selected.value) {
-                size.value = 150
-            } else {
-                size.value = 50
-            }
-
             itemsIndexed(daysOfMonth) { index, date ->
                 CalendarView(
                     date = date,
