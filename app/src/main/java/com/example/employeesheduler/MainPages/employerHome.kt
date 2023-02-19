@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.material.TopAppBar
@@ -26,6 +27,8 @@ import androidx.navigation.NavHostController
 import com.example.employeesheduler.Navigation.Screen
 import com.example.employeesheduler.viewModel
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import me.saket.swipe.SwipeAction
+import me.saket.swipe.SwipeableActionsBox
 
 @Composable
 fun employerHome(
@@ -70,9 +73,29 @@ fun employerHome(
         Column(Modifier.fillMaxSize()) {
             LazyColumn {
                 items(items = allEmployees) {
-                    employeeModel(name = it.name, uid = it.id){
-                        viewModel.serUid(uid = it.id)
-                        navHostController.navigate(Screen.employeeHome.route)
+                    val delete = SwipeAction(
+                        onSwipe = {
+                            viewModel.deleteEmployee(id = it.id)
+                            viewModel.getAllEmployees()
+                        },
+                        icon = { Icon(
+                            painter = painterResource(id = R.drawable.delete_white),
+                            contentDescription = " ",
+                            tint = Color.White
+                        ) },
+                        background = Color.Red
+                    )
+                    SwipeableActionsBox(
+                        endActions = listOf(delete),
+                        swipeThreshold = 170.dp,
+                        modifier = Modifier
+                            .padding(horizontal = 10.dp, vertical = 5.dp)
+                            .clip(RoundedCornerShape(20))
+                    ) {
+                        employeeModel(name = it.name, uid = it.id) {
+                            viewModel.serUid(uid = it.id)
+                            navHostController.navigate(Screen.employeeHome.route)
+                        }
                     }
                 }
             }
@@ -86,7 +109,6 @@ fun employeeModel(name: String, uid: String, onClick: () -> Unit ) {
         modifier = Modifier
             .fillMaxWidth()
             .size(80.dp)
-            .padding(horizontal = 10.dp, vertical = 5.dp)
             .clip(RoundedCornerShape(20))
             .background(Color(0xA9B1B9FC))
             .clickable { onClick() }

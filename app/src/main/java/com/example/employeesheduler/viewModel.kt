@@ -95,4 +95,10 @@ class viewModel: ViewModel() {
         selectedEmpId = uid
     }
 
+    fun deleteEmployee(id: String) {
+        firestore
+            .document("employer/$currentuser/employees/$id")
+            .delete()
+    }
+
 }
