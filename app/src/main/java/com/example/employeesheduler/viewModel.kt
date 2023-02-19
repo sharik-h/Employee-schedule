@@ -61,4 +61,8 @@ class viewModel: ViewModel() {
             ))
     }
 
+    fun clearData(){
+        newEvent.value = Event()
+    }
+
 }

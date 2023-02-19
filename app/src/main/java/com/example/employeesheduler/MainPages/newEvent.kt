@@ -49,6 +49,7 @@ fun newEvent(
                             viewModel.updateEvent()
                         }
                     }
+                    viewModel.clearData()
                     navHostController.navigateUp()
                 } ) {
                     Text(
