@@ -14,6 +14,7 @@ class viewModel: ViewModel() {
     val currentuser = FirebaseAuth.getInstance().currentUser?.uid
     val firestore = Firebase.firestore
     val newEvent = mutableStateOf(Event())
+    val newEmployee = mutableStateOf(Employee())
     var allEvents: MutableLiveData<List<Event>> = MutableLiveData()
     var allEmployee: MutableLiveData<List<Employee>> = MutableLiveData()
 
@@ -30,6 +31,8 @@ class viewModel: ViewModel() {
             "discription" -> newEvent.value = newEvent.value.copy(description = value)
             "date" -> newEvent.value = newEvent.value.copy(date = value)
             "id" -> newEvent.value = newEvent.value.copy(id = value)
+            "empId" -> newEmployee.value = newEmployee.value.copy(id = value)
+            "empName" -> newEmployee.value = newEmployee.value.copy(name = value)
         }
     }
 
@@ -65,6 +68,7 @@ class viewModel: ViewModel() {
 
     fun clearData(){
         newEvent.value = Event()
+        newEmployee.value = Employee()
     }
 
     fun getAllEmployees() {
@@ -78,6 +82,12 @@ class viewModel: ViewModel() {
                 }
                 allEmployee.value = data
             }
+    }
+
+    fun addNewEmployee() {
+        firestore
+            .document("employer/$currentuser/employees/${newEmployee.value.id}")
+            .set(newEmployee.value)
     }
 
 }

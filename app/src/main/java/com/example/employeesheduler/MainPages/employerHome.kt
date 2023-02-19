@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.example.employeesheduler.R
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.employeesheduler.Navigation.Screen
 import com.example.employeesheduler.viewModel
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
@@ -54,7 +55,7 @@ fun employerHome(
                     fontSize = 20.sp,
                 )
                 Spacer(modifier = Modifier.weight(0.2f))
-                TextButton(onClick = { }) {
+                TextButton(onClick = { navHostController.navigate(Screen.newEmployee.route) }) {
                     Text(
                         text = "Add employee",
                         color = Color.Black,

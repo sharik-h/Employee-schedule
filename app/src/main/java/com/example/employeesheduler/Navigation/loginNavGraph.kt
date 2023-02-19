@@ -12,6 +12,7 @@ import com.example.employeesheduler.LoginPages.chooseUser
 import com.example.employeesheduler.LoginPages.signUp
 import com.example.employeesheduler.MainPages.employeeHome
 import com.example.employeesheduler.MainPages.employerHome
+import com.example.employeesheduler.MainPages.newEmployee
 import com.example.employeesheduler.MainPages.newEvent
 import com.example.employeesheduler.SplashScreen.SplashScreen
 import com.example.employeesheduler.viewModel
@@ -54,6 +55,9 @@ fun loginNavGraph(
                 navHostController = navHostController,
                 use = it.arguments?.getString("use")!!
             )
+        }
+        composable(route = Screen.newEmployee.route){
+            newEmployee(viewModel = viewModel, navHostController = navHostController)
         }
     }
 }

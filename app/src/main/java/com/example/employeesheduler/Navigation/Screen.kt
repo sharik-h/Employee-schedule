@@ -11,4 +11,5 @@ sealed class Screen(val route: String) {
     object newEvent: Screen(route = "newEvent/{use}"){
         fun passUse(use: String) = "newEvent/${use}"
     }
+    object newEmployee: Screen(route = "newEmployee")
 }
