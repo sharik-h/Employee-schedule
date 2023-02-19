@@ -91,8 +91,11 @@ fun CalendarView(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 10.dp, vertical = 5.dp)
-            .size(if (selected && events.isNotEmpty()) 150.dp else if (selected) 100.dp else 50.dp)
-            .clip(RoundedCornerShape(20))
+            .size(
+                if (selected && events.isNotEmpty()) (100 + 40 * events.size).dp
+                else if (selected) 100.dp
+                else 50.dp)
+            .clip(RoundedCornerShape(if(selected) 20 - 3*events.size else 20))
             .background(Color(0xA9B1B9FC))
             .clickable(onClick = { selected = !selected })
     ) {
@@ -187,6 +190,7 @@ fun CalendarView(
                             ) },
                             background = Color.Red
                         )
+                        Spacer(modifier = Modifier.height(4.dp))
                             SwipeableActionsBox(
                                 startActions = listOf(edit),
                                 endActions = listOf(delete),
@@ -208,7 +212,8 @@ fun CalendarView(
                                     )
                                     Spacer(modifier = Modifier.weight(0.2f))
                                     Text(
-                                        text = it.description!!,
+                                        text = if (it.description.length > 20) it.description.substring(0, 30) + "..."
+                                               else it.description,
                                         modifier = Modifier.padding(end = 10.dp)
                                     )
                                 }
